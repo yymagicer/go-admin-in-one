@@ -65,6 +65,10 @@ COPY --from=backend /app/go-admin/main /app/go-admin/
 
 COPY go-admin/config/settings-prod.yml /app/go-admin/config/settings.yml
 
+COPY go-admin/config/db.sql /app/go-admin/config/db.sql
+COPY go-admin/config/db-begin-mysql.sql /app/go-admin/config/db-begin-mysql.sql
+COPY go-admin/config/db-end-mysql.sql /app/go-admin/config/db-end-mysql.sql
+
 COPY go-admin/go-admin-db.db /app/go-admin/go-admin-db.db
 
 # 暴露服务端口
