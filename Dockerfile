@@ -30,7 +30,7 @@ COPY go-admin-ui/package*.json ./
 
 RUN npm install --registry=https://registry.npmmirror.com  --force
 
-COPY go-admin-ui/* .
+COPY go-admin-ui/. .
 
 RUN npm run build:prod
 
