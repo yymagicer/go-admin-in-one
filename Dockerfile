@@ -28,7 +28,7 @@ WORKDIR /app/go-admin-ui
 # 拷贝 package.json 和 yarn.lock 文件
 COPY go-admin-ui/package*.json ./
 
-RUN npm install --registry=https://registry.npmmirror.com
+RUN npm install --registry=https://registry.npmmirror.com  --force
 
 COPY . .
 
