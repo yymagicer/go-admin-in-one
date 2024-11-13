@@ -19,27 +19,6 @@ RUN go mod tidy
 # 编译 Go 项目
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
 
-FROM alpine
-
-# ENV GOPROXY https://goproxy.cn/
-
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
-
-RUN apk update --no-cache
-RUN apk add --update gcc g++ libc6-compat
-RUN apk add --no-cache ca-certificates
-RUN apk add --no-cache tzdata
-ENV TZ Asia/Shanghai
-
-COPY ./main /main
-COPY ./config/settings.demo.yml /config/settings.yml
-COPY ./go-admin-db.db /go-admin-db.db
-EXPOSE 8000
-RUN  chmod +x /main
-CMD ["/main","server","-c", "/config/settings.yml"]
-
-
-
 # 第二步: 构建 Vue 3 项目
 FROM registry.cn-hangzhou.aliyuncs.com/server-tool/node:18.16-bullseye-slim as frontend
 
@@ -86,6 +65,8 @@ COPY go-admin/go-admin-db.db /app/go-admin/go-admin-db.db
 
 # 暴露服务端口
 EXPOSE 80
+
+RUN  chmod +x /app/go-admin/main
 
 # 启动 Go 后端服务并运行 Nginx
 CMD ["sh", "-c", "cd /app/go-admin && ./main server -c /config/settings.yml & nginx -g 'daemon off;'"]
