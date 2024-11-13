@@ -73,6 +73,6 @@ EXPOSE 80
 RUN  chmod +x /app/go-admin/main
 
 # 启动 Go 后端服务并运行 Nginx
-CMD ["sh", "-c", "cd /app/go-admin && ./main server -c ./config/settings.yml & nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "cd /app/go-admin && ./main migrate -c ./config/settings-prod.yml && ./main server -c ./config/settings-prod.yml & nginx -g 'daemon off;'"]
 
 
