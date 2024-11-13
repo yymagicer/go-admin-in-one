@@ -63,7 +63,7 @@ COPY --from=frontend /app/go-admin-ui/dist /usr/share/nginx/html
 # 拷贝编译好的 Go 可执行文件
 COPY --from=backend /app/go-admin/main /app/go-admin/
 
-COPY go-admin/config/settings.yml /app/go-admin/config/settings.yml
+COPY go-admin/config/settings-prod.yml /app/go-admin/config/settings.yml
 
 COPY go-admin/go-admin-db.db /app/go-admin/go-admin-db.db
 
@@ -73,6 +73,6 @@ EXPOSE 80
 RUN  chmod +x /app/go-admin/main
 
 # 启动 Go 后端服务并运行 Nginx
-CMD ["sh", "-c", "cd /app/go-admin && ./main migrate -c ./config/settings-prod.yml && ./main server -c ./config/settings-prod.yml & nginx -g 'daemon off;'"]
+CMD ["sh", "-c", "cd /app/go-admin && ./main migrate -c ./config/settings.yml && ./main server -c ./config/settings.yml & nginx -g 'daemon off;'"]
 
 
