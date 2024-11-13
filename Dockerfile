@@ -40,6 +40,8 @@ RUN npm run build:prod
 # 第三步: 最终部署
 FROM registry.cn-hangzhou.aliyuncs.com/server-tool/nginx:alpine
 
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+
 # 更新 apk 包索引并安装 Node.js 和 npm
 RUN apk update && \
     apk add --no-cache bash ca-certificates tzdata && \
