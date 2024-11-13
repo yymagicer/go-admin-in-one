@@ -20,7 +20,7 @@ RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
 
 # 第二步: 构建 Vue 3 项目
-FROM registry.cn-shanghai.aliyuncs.com/lwmeng/node:lts-alpine as frontend
+FROM node:lts as frontend
 
 # 设置工作目录
 WORKDIR /app/go-admin-ui
