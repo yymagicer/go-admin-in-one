@@ -20,7 +20,7 @@ RUN go mod tidy
 RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o main .
 
 # 第二步: 构建 Vue 3 项目
-FROM registry.cn-hangzhou.aliyuncs.com/server-tool/node:18.16-bullseye-slim as frontend
+FROM registry.cn-shanghai.aliyuncs.com/lwmeng/node:lts-alpin as frontend
 
 # 设置工作目录
 WORKDIR /app/go-admin-ui
